@@ -7,7 +7,7 @@
         <!--        </video>-->
         <!--        <video ref="videoRef" src="" id="video-container" width="100%" controls ></video>-->
         <div class="video-div">
-            <video src="@/assets/popcorn.mp4" controls autoplay muted="muted"></video>
+            <img alt="Vue logo" class="popcorn" src="@/assets/popcorn.png">
             <router-link :to="{name: 'mypage'}">
                 <button class="mypage-btn">마이페이지</button>
             </router-link>
@@ -51,14 +51,15 @@
 </script>
 
 <style scoped>
-    #video-container {
-        height: 800px;
+    .popcorn {
+        height: 790px;
         width: 100%;
         position: relative;
         top: 20px;
     }
     .mypage-btn{
-        top:650px;
+        top:550px;
+        left: 900px;
         position: absolute;
     }
     .mypage-btn{
