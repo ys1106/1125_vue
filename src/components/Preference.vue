@@ -4,15 +4,11 @@
             <div class="main_header_progress">
                 <p class="main_header_progressCount">{{count}}</p>
                 <p class="main_header_progressMessage">많은 영화를 평가할수록 취향에 맞는 영화가 추천됩니다.</p>
-<!--                <div class="progressBar_div">-->
-<!--                    &lt;!&ndash;프로그레스바 묶어주는 디브임&ndash;&gt;-->
-<!--                    <div class="progresssBar" style="width:60%;">-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
-<!--            <router-link :to="{name: 'mypage'}">-->
-                <v-btn class="completeButton" @click="sendPreference">추가 완료! 추천 받기</v-btn>
-<!--            </router-link>-->
+            <!--            <router-link :to="{name: 'mypage'}">-->
+            <v-btn class="completeButton" @click="sendPreference(); callThePackMan()">추가 완료! 추천 받기</v-btn>
+<!--            <sync-loader :loading="loading" :color="color" :size="size"></sync-loader>-->
+            <!--            </router-link>-->
         </div>
 
         <div v-infinite-scroll="loadMore"
@@ -20,7 +16,7 @@
              infinite-scroll-distance="10" class="scroll-div">
             <section class="movieSection">
                 <div v-for="movie in movies" :key=movie.id class="movie_div">
-                    <img :src="movie.img"  v-bind:alt="movie.title"/>
+                    <img :src="movie.img" v-bind:alt="movie.title"/>
                     <!--            <img :src ="getSrc(movie.title)" :alt="picture"/>-->
                     <p>{{movie.title}}</p>
                     <input type="range" class="scores_range" name="scores" value="0" min="0" max="10"
@@ -35,53 +31,57 @@
 <script>
     import infiniteScroll from 'vue-infinite-scroll'
     import axios from "axios";
+    // import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 
     export default {
         name: "Preference",
-
+        components: {
+            // SyncLoader
+        },
         data: () => ({
             movies: [
-                {
-                    id: 1,
-                    title: '굿모닝 맨하탄',
-                    img: require(`../assets/굿모닝 맨하탄.jpg`),
-                    value: 0,
-                },
-                {
-                    id: 2,
-                    title: '관상',
-                    img: require('../assets/관상.jpg'),
-                    value: 0,
-                },
-                {
-                    id: 3,
-                    title: '그녀',
-                    img: require('../assets/그녀.jpg'),
-                    value: 0,
-                },
-                {
-                    id: 4,
-                    title: '더 테러 라이브',
-                    img: require('../assets/더 테러 라이브.jpg'),
-                    value: 0,
-                },
-                {
-                    id: 5,
-                    title: '1번가의 기적',
-                    img: require('../assets/1번가의 기적.jpg'),
-                    value: 0,
-                },
-                {
-                    id: 6,
-                    title: '',
-                    img: '',
-                    value: 0,
-                }
+                // {
+                //     id: 1,
+                //     title: '굿모닝 맨하탄',
+                //     img: require(`../assets/굿모닝 맨하탄.jpg`),
+                //     value: 0,
+                // },
+                // {
+                //     id: 2,
+                //     title: '관상',
+                //     img: require('../assets/관상.jpg'),
+                //     value: 0,
+                // },
+                // {
+                //     id: 3,
+                //     title: '그녀',
+                //     img: require('../assets/그녀.jpg'),
+                //     value: 0,
+                // },
+                // {
+                //     id: 4,
+                //     title: '더 테러 라이브',
+                //     img: require('../assets/더 테러 라이브.jpg'),
+                //     value: 0,
+                // },
+                // {
+                //     id: 5,
+                //     title: '1번가의 기적',
+                //     img: require('../assets/1번가의 기적.jpg'),
+                //     value: 0,
+                // },
+                // {
+                //     id: 6,
+                //     title: '',
+                //     img: '',
+                //     value: 0,
+                // }
             ],
+            loading: true,
             bottom: false,
             limit: 20,
             count: 0,
-            ratedMovies:[],
+            ratedMovies: [],
 
             // props:[this.value],
             // 다음 영화 목록 가져오기 위해 next 오브젝트 사용
@@ -94,23 +94,20 @@
         computed: { // 페이지 뜨자마자 가장 먼저 실행되어야 할 것...
 
 
-
-
         },
         directives: {
             infiniteScroll
         },
         methods: {
-            counting: function (){
-                for(let movie of this.movies){
-                    if(movie.value > 0 && !this.ratedMovies.includes(movie.id)){
+            counting: function () {
+                for (let movie of this.movies) {
+                    if (movie.value > 0 && !this.ratedMovies.includes(movie.id)) {
                         this.ratedMovies.push(movie.id);
-                        this.count ++;
-                    }
-                    else if(this.ratedMovies.includes(movie.id) && movie.value == 0){
+                        this.count++;
+                    } else if (this.ratedMovies.includes(movie.id) && movie.value == 0) {
                         let num = this.ratedMovies.indexOf(movie.id);
                         this.ratedMovies.splice(num, 1);
-                        this.count --;
+                        this.count--;
                     }
                 }
             },
@@ -128,7 +125,7 @@
             // 새로운 영화리스트들 추가해주기 위한 함수
             getMovies: function () {
 
-                axios.get('/movies',
+                axios.get('/users/randommovies',
                 ).then(res => {
                     // eslint-disable-next-line no-console
                     console.log(res.data);
@@ -144,7 +141,7 @@
                     this.bottom = false;
                 })
             },
-            sendPreference: function() {
+            sendPreference: function () {
                 let objs = []
                 for (let movie of this.movies) {
                     if (movie.value > 0) {
@@ -155,10 +152,12 @@
                     }
                 }
                 objs = {movies: objs}
-                axios.post('http://localhost:8080/preference\n',this.objs)
+                axios.post('/users/addmymovies', objs)
                 // eslint-disable-next-line no-console
-                    .then(response => {console.log(response.data + 'success')
-                }).catch(error => {
+                    .then(response => {
+                        // eslint-disable-next-line no-console
+                        console.log(response.data + 'success')
+                    }).catch(error => {
                     // eslint-disable-next-line no-console
                     console.log(error)
                 })
@@ -166,7 +165,10 @@
                 this.$router.push({name: 'mypage'})
                 // eslint-disable-next-line no-console
                 console.log("success");
-            }
+            },
+            // callThePackMan: function(){
+            //     this.loading = true
+            // }
 
         },
 
@@ -188,6 +190,7 @@
     .movie_div > p {
         font-weight: 700;
     }
+
     .movieSection {
         display: flex;
         flex-wrap: wrap;
@@ -400,10 +403,12 @@
     body {
         margin: 0px;
     }
-    .scores_range{
+
+    .scores_range {
         width: 300px;
     }
+
     .movie_div > span {
         font-weight: 700;
-                 }
+    }
 </style>

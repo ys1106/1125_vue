@@ -92,7 +92,7 @@
         methods: {
             // MyPage 띄우면 바로 이 메소드 실행되어서 사용자의 영화 리스트에 사용자가 추가한 영화 띄워지도록
             userMovieList: function () {
-                axios.get('/userList',).then(res => {
+                axios.get('/users/mymovies',).then(res => {
                     // eslint-disable-next-line no-console
                     console.log(res.data)
                     const movies = res.data.slice(0, res.data.length)

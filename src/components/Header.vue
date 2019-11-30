@@ -10,24 +10,19 @@
 
         <nav class="navigation_bar">
 
-            <a href="Main.html" class="homepage-Logo">
+            <a href="/" class="homepage-Logo">
                 <img alt="Vue logo" src="@/assets/MainLogo.png" style="height: 60px"/>
-                <!--                </div>-->
-                <!--                <img-->
-                <!--                    src="C:\\Users\\altjs\\Desktop\\3학년 2학기\\소프트웨어공학\\기말고사\\untitled\\src\\assets\\MainLogo.png"-->
-                <!--                    alt="로드실패"-->
-                <!--                    style="height:60px"></a>-->
             </a>
             <ul class="banner_rightNav">
                 <!-- ::before -->
                 <li class="banner_rightNav_li">
-                    <div class="usericon_out1">
-                        <!-- <div class="usericon_out2"> -->
-                        <div class="usericon_out3">
-                            <span><a href="/user//logout"><img alt="logout logo" src="@/assets/logout.png" id="userIcon" style="height: 20px"/></a></span>
-                        </div>
-                        <!-- </div> -->
-                    </div>
+<!--                    <div class="usericon_out1">-->
+<!--                        &lt;!&ndash; <div class="usericon_out2"> &ndash;&gt;-->
+<!--                        <div class="usericon_out3">-->
+<!--                            <span><a href="/user//logout"><img alt="logout logo" src="@/assets/logout.png" id="userIcon" style="height: 20px"/></a></span>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; </div> &ndash;&gt;-->
+<!--                    </div>-->
                 </li>
             </ul>
         </nav>

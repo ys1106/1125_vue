@@ -1,24 +1,17 @@
 <template>
     <div>
         <p style="color:white"> 동영상 자리</p>
-        <!--        <vue-video-background videoSrcWebm="@\src\assets\popcorn.mp4"></vue-video-background>-->
-        <!--        <video class="video" ref="video">-->
-        <!--            <source src="@/assets/popcorn.mp4" type="video/mp4">-->
-        <!--        </video>-->
-        <!--        <video ref="videoRef" src="" id="video-container" width="100%" controls ></video>-->
-        <div class="video-div">
-            <img alt="Vue logo" class="popcorn" src="@/assets/popcorn.png">
-            <router-link :to="{name: 'mypage'}">
-                <button class="mypage-btn">마이페이지</button>
-            </router-link>
-            <!--            <router-link :to="{name: 'singup'}">-->
-            <!--                <button class="insert-btn">회원가입</button>-->
-            <!--            </router-link>-->
-            <!--            <router-link :to="{name: 'login'}">-->
-            <!--                <button class="insert-btn">로그인</button>-->
-            <!--            </router-link>-->
+        <div class="VideoBg">
+            <video autoplay="autoplay" loop="loop" muted="muted" class="popcorn">
+                <source src="@/assets/popcorn.mp4" type="video/mp4">
+            </video>
+            <a href="/users/signup">
+                <button class="sign-btn main-btn">회원가입</button>
+            </a>
+            <a href="/users/login">
+                <button class="login-btn main-btn">로그인</button>
+            </a>
         </div>
-
     </div>
 </template>
 
@@ -27,26 +20,7 @@
 
     export default {
         name: "Popcorn",
-        computed: {
-            // videoElement () {
-            //     return this.$refs.video;
-            // },
-            // videoPlaying () {
-            //     return this.$refs.video.play();
-            // }
-        },
-        // created: {
-        //     videoElement () {
-        //         return this.$refs.video;
-        //     },
-        //     videoPlaying () {
-        //         return this.$refs.video.play();
-        //     }
-        // }
-        // mounted: function() {
-        //     this.$refs.videoRef.src = "@/src/assets/popcorn.mp4";
-        //     this.$refs.videoRef.play();
-        // }
+
     }
 </script>
 
@@ -56,23 +30,31 @@
         width: 100%;
         position: relative;
         top: 20px;
+        visibility: visible;
     }
-    .mypage-btn{
-        top:550px;
-        left: 900px;
-        position: absolute;
+
+    .sign-btn {
+        left: 730px;
     }
-    .mypage-btn{
+
+    .login-btn {
+        right: 730px;
+    }
+
+    .main-btn {
         color: white;
         background-color: #EA5A69;
         border-radius: 10px;
-
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
-        width: 110px;
+        top: 650px;
+        position: fixed;
+        width: 130px;
         height: 40px;
+        border-color: #EA5A69;
     }
-    .mypage-btn{
+
+    .main-btn {
         margin-right: 60px;
     }
 </style>
